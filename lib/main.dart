@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primaryColor: customColorScheme().primary,
@@ -71,33 +72,30 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(color: customColorScheme().primaryDark),
-      child: Scaffold(
-        key: _scaffoldkey,
+    return Scaffold(
+      key: _scaffoldkey,
+      appBar: AppBar(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0.0,
-          title: Center(
-            child: Text(
-              widget.title,
-              style: TextStyle(
-                  color: Colors.white, fontFamily: "Abel", fontSize: 25.0),
-            ),
-          ),
+        elevation: 0.0,
+        title: Text(
+          widget.title,
+          style: TextStyle(
+              fontFamily: "Abel", fontSize: 45.0, fontWeight: FontWeight.w600),
         ),
-        body: Padding(
-          padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 25.0),
-          child: ListView.builder(
-            itemCount: billDatas.length,
-            itemBuilder: (context, index) {
-              return billInfo(
-                billDatas.elementAt(index),
-                route: "",
-              );
-            },
-          ),
+      ),
+      body: Container(
+        padding: EdgeInsets.all(5.0),
+        child: Column(
+          children: <Widget>[
+            Expanded(
+                child: PageView.builder(
+              itemCount: billDatas.length,
+              pageSnapping: true,
+              itemBuilder: (context, index) {
+                return billInfo(billDatas.elementAt(index));
+              },
+            )),
+          ],
         ),
       ),
     );
@@ -106,9 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
 class billInfo extends StatefulWidget {
   billData data;
-  String route;
   GlobalKey key;
-  billInfo(this.data, {this.route});
+  billInfo(this.data);
   @override
   _billInfoState createState() {
     // TODO: implement createState
@@ -121,7 +118,8 @@ class _billInfoState extends State<billInfo> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      margin: EdgeInsets.only(bottom: 15.0),
+      // margin: EdgeInsets.only(bottom: 15.0),
+      padding: EdgeInsets.all(15.0),
       child: Material(
         type: MaterialType.card,
         elevation: 10.0,
@@ -134,13 +132,6 @@ class _billInfoState extends State<billInfo> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    height: 101.3,
-                    width: 100.0,
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                    ),
-                  ),
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
@@ -199,17 +190,17 @@ class _billInfoState extends State<billInfo> {
               padding: const EdgeInsets.all(8.0),
               child: InkWell(
                 onTap: () {
-                  _scaffoldkey.currentState
-                      .showBottomSheet((BuildContext context) {
-                    return new Container(
-                        child: new Row(
-                      children: <Widget>[
-                        Column(
-                          children: <Widget>[],
-                        )
-                      ],
-                    ));
-                  });
+                  // _scaffoldkey.currentState
+                  //     .showBottomSheet((BuildContext context) {
+                  //   return new Container(
+                  //       child: new Row(
+                  //     children: <Widget>[
+                  //       Column(
+                  //         children: <Widget>[],
+                  //       )
+                  //     ],
+                  //   ));
+                  // });
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
